@@ -40,7 +40,6 @@ dependencies {
                             Environment.DIRECTORY_PICTURES).getAbsolutePath())
                     .build()
                     .compressToFile(oldFile);
-            setCompressedImage();
 ```
 该项目参考了：
 
