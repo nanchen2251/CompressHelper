@@ -2,7 +2,7 @@
 压缩，图片压缩，压缩Bitmap，Compress,CompressImage,CompressFile,CompressBitmap
 
 ## 效果图<br>
-![](https://github.com/nanchen2251/CompressHelper/blob/master/123.png)
+![](https://github.com/nanchen2251/CompressHelper/blob/master/111.png)
 
 #### ⊙开源不易，希望给个star或者fork奖励
 #### ⊙拥抱开源：https://github.com/nanchen2251/
