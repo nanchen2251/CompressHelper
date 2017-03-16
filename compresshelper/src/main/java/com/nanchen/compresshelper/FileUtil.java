@@ -15,26 +15,162 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 /**
+ * 文件工具类
+ *
  * Author: nanchen
  * Email: liushilin520@foxmail.com
  * Date: 2017-03-08  9:03
  */
 
 public class FileUtil {
-    static final String FILES_PATH = "Compressor";
+    static final String FILES_PATH = "CompressHelper";
     private static final int EOF = -1;
     private static final int DEFAULT_BUFFER_SIZE = 1024 * 4;
 
     private FileUtil() {
-
+        throw new UnsupportedOperationException("u can't instantiate me...");
     }
 
-    public static File from(Context context, Uri uri) throws IOException {
+    /**
+     * 根据文件路径获取文件
+     *
+     * @param filePath 文件路径
+     * @return 文件
+     */
+    public static File getFileByPath(String filePath) {
+        return StringUtils.isSpace(filePath) ? null : new File(filePath);
+    }
+
+    /**
+     * 判断文件是否存在
+     *
+     * @param filePath 文件路径
+     * @return {@code true}: 存在<br>{@code false}: 不存在
+     */
+    public static boolean isFileExists(String filePath) {
+        return isFileExists(getFileByPath(filePath));
+    }
+
+    /**
+     * 判断文件是否存在
+     *
+     * @param file 文件
+     * @return {@code true}: 存在<br>{@code false}: 不存在
+     */
+    public static boolean isFileExists(File file) {
+        return file != null && file.exists();
+    }
+
+
+    /**
+     * 重命名文件
+     *
+     * @param filePath 文件路径
+     * @param newName  新名称
+     * @return {@code true}: 重命名成功<br>{@code false}: 重命名失败
+     */
+    public static boolean rename(String filePath, String newName) {
+        return rename(getFileByPath(filePath), newName);
+    }
+
+    /**
+     * 重命名文件
+     *
+     * @param file    文件
+     * @param newName 新名称
+     * @return {@code true}: 重命名成功<br>{@code false}: 重命名失败
+     */
+    public static boolean rename(File file, String newName) {
+        // 文件为空返回false
+        if (file == null) return false;
+        // 文件不存在返回false
+        if (!file.exists()) return false;
+        // 新的文件名为空返回false
+        if (StringUtils.isSpace(newName)) return false;
+        // 如果文件名没有改变返回true
+        if (newName.equals(file.getName())) return true;
+        File newFile = new File(file.getParent() + File.separator + newName);
+        // 如果重命名的文件已存在返回false
+        return !newFile.exists()
+                && file.renameTo(newFile);
+    }
+
+    /**
+     * 判断是否是目录
+     *
+     * @param dirPath 目录路径
+     * @return {@code true}: 是<br>{@code false}: 否
+     */
+    public static boolean isDir(String dirPath) {
+        return isDir(getFileByPath(dirPath));
+    }
+
+    /**
+     * 判断是否是目录
+     *
+     * @param file 文件
+     * @return {@code true}: 是<br>{@code false}: 否
+     */
+    public static boolean isDir(File file) {
+        return isFileExists(file) && file.isDirectory();
+    }
+
+    /**
+     * 判断是否是文件
+     *
+     * @param filePath 文件路径
+     * @return {@code true}: 是<br>{@code false}: 否
+     */
+    public static boolean isFile(String filePath) {
+        return isFile(getFileByPath(filePath));
+    }
+
+    /**
+     * 判断是否是文件
+     *
+     * @param file 文件
+     * @return {@code true}: 是<br>{@code false}: 否
+     */
+    public static boolean isFile(File file) {
+        return isFileExists(file) && file.isFile();
+    }
+
+
+    /**
+     * 重命名文件
+     * @param file      文件
+     * @param newName   新名字
+     * @return          新文件
+     */
+    public static File renameFile(File file, String newName) {
+        File newFile = new File(file.getParent(), newName);
+        if (!newFile.equals(file)) {
+            if (newFile.exists()) {
+                if (newFile.delete()) {
+                    Log.d("FileUtil", "Delete old " + newName + " file");
+                }
+            }
+            if (file.renameTo(newFile)) {
+                Log.d("FileUtil", "Rename file to " + newName);
+            }
+        }
+        return newFile;
+    }
+
+
+    /**
+     * 获取临时文件
+     * @param context   上下文
+     * @param uri       url
+     * @return          临时文件
+     * @throws IOException
+     */
+    public static File getTempFile(Context context, Uri uri) throws IOException {
         InputStream inputStream = context.getContentResolver().openInputStream(uri);
         String fileName = getFileName(context, uri);
         String[] splitName = splitFileName(fileName);
         File tempFile = File.createTempFile(splitName[0], splitName[1]);
-        tempFile = rename(tempFile, fileName);
+        tempFile = renameFile(tempFile, fileName);
         tempFile.deleteOnExit();
         FileOutputStream out = null;
         try {
@@ -53,6 +189,10 @@ public class FileUtil {
         return tempFile;
     }
 
+    /**
+     * 截取文件名称
+     * @param fileName  文件名称
+     */
     static String[] splitFileName(String fileName) {
         String name = fileName;
         String extension = "";
@@ -65,6 +205,12 @@ public class FileUtil {
         return new String[]{name, extension};
     }
 
+    /**
+     * 获取文件名称
+     * @param context   上下文
+     * @param uri       uri
+     * @return          文件名称
+     */
     static String getFileName(Context context, Uri uri) {
         String result = null;
         if (uri.getScheme().equals("content")) {
@@ -91,10 +237,16 @@ public class FileUtil {
         return result;
     }
 
-    static String getRealPathFromURI(Context context, Uri contentUri) {
-        Cursor cursor = context.getContentResolver().query(contentUri, null, null, null, null);
+    /**
+     * 获取真实的路径
+     * @param context   上下文
+     * @param uri       uri
+     * @return          文件路径
+     */
+    static String getRealPathFromURI(Context context, Uri uri) {
+        Cursor cursor = context.getContentResolver().query(uri, null, null, null, null);
         if (cursor == null) {
-            return contentUri.getPath();
+            return uri.getPath();
         } else {
             cursor.moveToFirst();
             int index = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
@@ -104,20 +256,7 @@ public class FileUtil {
         }
     }
 
-    static File rename(File file, String newName) {
-        File newFile = new File(file.getParent(), newName);
-        if (!newFile.equals(file)) {
-            if (newFile.exists()) {
-                if (newFile.delete()) {
-                    Log.d("FileUtil", "Delete old " + newName + " file");
-                }
-            }
-            if (file.renameTo(newFile)) {
-                Log.d("FileUtil", "Rename file to " + newName);
-            }
-        }
-        return newFile;
-    }
+
 
     static int copy(InputStream input, OutputStream output) throws IOException {
         long count = copyLarge(input, output);

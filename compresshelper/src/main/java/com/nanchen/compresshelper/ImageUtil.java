@@ -18,13 +18,17 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
+ * 图片处理工具类
+ *
  * Author: nanchen
  * Email: liushilin520@foxmail.com
  * Date: 2017-03-08  9:03
  */
 
-class ImageUtil {
+public class ImageUtil {
+
     private ImageUtil() {
+        throw new UnsupportedOperationException("u can't instantiate me...");
     }
 
     static Bitmap getScaledBitmap(Context context, Uri imageUri, float maxWidth, float maxHeight, Bitmap.Config bitmapConfig) {
@@ -91,7 +95,7 @@ class ImageUtil {
         options.inTempStorage = new byte[16 * 1024];
 
         try {
-            //load the bitmap from its path
+            //load the bitmap getTempFile its path
             bmp = BitmapFactory.decodeFile(filePath, options);
             if (bmp == null) {
 
@@ -155,7 +159,6 @@ class ImageUtil {
         String filename = generateFilePath(context, parentPath, imageUri, compressFormat.name().toLowerCase(), prefix, fileName);
         try {
             out = new FileOutputStream(filename);
-
             //write the compressed bitmap at the destination specified by filename.
             ImageUtil.getScaledBitmap(context, imageUri, maxWidth, maxHeight, bitmapConfig).compress(compressFormat, quality, out);
 
@@ -186,6 +189,10 @@ class ImageUtil {
         return file.getAbsolutePath() + File.separator + fileName + "." + extension;
     }
 
+
+    /**
+     * 计算inSampleSize
+     */
     private static int calculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight) {
         final int height = options.outHeight;
         final int width = options.outWidth;

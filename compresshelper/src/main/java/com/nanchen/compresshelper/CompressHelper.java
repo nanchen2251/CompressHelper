@@ -21,14 +21,35 @@ import rx.functions.Func0;
 public class CompressHelper {
     private static volatile CompressHelper INSTANCE;
     private Context context;
-    //max width and height values of the compressed image is taken as 612x816
-    private float maxWidth = 612.0f;
-    private float maxHeight = 816.0f;
+    /**
+     * 最大宽度，默认为720
+     */
+    private float maxWidth = 720.0f;
+    /**
+     * 最大高度,默认为960
+     */
+    private float maxHeight = 960.0f;
+    /**
+     * 默认压缩后的方式为JPEG
+     */
     private Bitmap.CompressFormat compressFormat = Bitmap.CompressFormat.JPEG;
+
+    /**
+     * 默认的图片处理方式是ARGB_8888
+     */
     private Bitmap.Config bitmapConfig = Bitmap.Config.ARGB_8888;
+    /**
+     * 默认压缩质量为80
+     */
     private int quality = 80;
+    /**
+     * 存储路径
+     */
     private String destinationDirectoryPath;
     private String fileNamePrefix;
+    /**
+     * 文件名
+     */
     private String fileName;
 
 
@@ -86,6 +107,10 @@ public class CompressHelper {
         });
     }
 
+
+    /**
+     * 采用建造者模式，设置Builder
+     */
     public static class Builder {
         private CompressHelper mCompressHelper;
 
@@ -93,31 +118,53 @@ public class CompressHelper {
             mCompressHelper = new CompressHelper(context);
         }
 
+        /**
+         * 设置图片最大宽度
+         * @param maxWidth  最大宽度
+         */
         public Builder setMaxWidth(float maxWidth) {
             mCompressHelper.maxWidth = maxWidth;
             return this;
         }
 
+        /**
+         * 设置图片最大高度
+         * @param maxHeight 最大高度
+         */
         public Builder setMaxHeight(float maxHeight) {
             mCompressHelper.maxHeight = maxHeight;
             return this;
         }
 
+        /**
+         * 设置压缩的后缀格式
+         */
         public Builder setCompressFormat(Bitmap.CompressFormat compressFormat) {
             mCompressHelper.compressFormat = compressFormat;
             return this;
         }
 
+        /**
+         * 设置Bitmap的参数
+         */
         public Builder setBitmapConfig(Bitmap.Config bitmapConfig) {
             mCompressHelper.bitmapConfig = bitmapConfig;
             return this;
         }
 
+        /**
+         * 设置压缩质量，建议80
+         * @param quality   压缩质量，[0,100]
+         */
         public Builder setQuality(int quality) {
             mCompressHelper.quality = quality;
             return this;
         }
 
+        /**
+         * 设置目的存储路径
+         * @param destinationDirectoryPath  目的路径
+         */
         public Builder setDestinationDirectoryPath(String destinationDirectoryPath) {
             mCompressHelper.destinationDirectoryPath = destinationDirectoryPath;
             return this;
@@ -128,6 +175,10 @@ public class CompressHelper {
             return this;
         }
 
+        /**
+         * 设置文件名称
+         * @param fileName  文件名
+         */
         public Builder setFileName(String fileName) {
             mCompressHelper.fileName = fileName;
             return this;

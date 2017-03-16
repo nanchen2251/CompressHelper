@@ -9,7 +9,9 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- * Bitmap压缩相关操作工具类
+ * Bitmap 压缩相关操作工具类
+ *
+ *
  *
  * 原理不明白请查看我博客：http://www.cnblogs.com/liushilin/p/6116759.html
  *

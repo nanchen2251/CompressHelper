@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">CompressImage</string>
+    <string name="take_photo">照片</string>
+    <string name="compress">压缩</string>
 </resources>
