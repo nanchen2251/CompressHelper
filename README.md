@@ -34,7 +34,7 @@ dependencies {
 ```
 #### 3、你也可以自定义属性
 ```java
-   File newFile = new Compressor.Builder(this)
+   File newFile = new CompressHelper.Builder(this)
                     .setMaxWidth(720)  // 默认最大宽度为720
                     .setMaxHeight(960) // 默认最大高度为960
                     .setQuality(80)    // 默认压缩质量为80
