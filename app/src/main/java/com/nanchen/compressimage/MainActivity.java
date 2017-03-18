@@ -48,7 +48,21 @@ public class MainActivity extends AppCompatActivity{
     }
 
     public void compress(View view) {
+        // 默认的压缩方法，多张图片只需要直接加入循环即可
         newFile = CompressHelper.getDefault(this).compressToFile(oldFile);
+
+        // 你也可以自定义压缩
+//        newFile = new CompressHelper.Builder(this)
+//                .setMaxWidth(720)  // 默认最大宽度为720
+//                .setMaxHeight(960) // 默认最大高度为960
+//                .setQuality(80)    // 默认压缩质量为80
+//                .setCompressFormat(CompressFormat.JPEG) // 设置默认压缩为jpg格式
+//                .setDestinationDirectoryPath(Environment.getExternalStoragePublicDirectory(
+//                        Environment.DIRECTORY_PICTURES).getAbsolutePath())
+//                .build()
+//                .compressToFile(oldFile);
+
+
         mImageNew.setImageBitmap(BitmapFactory.decodeFile(newFile.getAbsolutePath()));
         mTextNew.setText(String.format("Size : %s", getReadableFileSize(newFile.length())));
     }

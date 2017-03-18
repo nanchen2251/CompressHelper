@@ -58,10 +58,24 @@ public class ImageUtil {
         int actualHeight = options.outHeight;
         int actualWidth = options.outWidth;
 
+        if (actualHeight == -1 || actualWidth == -1){
+            try {
+                ExifInterface exifInterface = new ExifInterface(filePath);
+                actualHeight = exifInterface.getAttributeInt(ExifInterface.TAG_IMAGE_LENGTH, ExifInterface.ORIENTATION_NORMAL);//获取图片的高度
+                actualWidth = exifInterface.getAttributeInt(ExifInterface.TAG_IMAGE_WIDTH, ExifInterface.ORIENTATION_NORMAL);//获取图片的宽度
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
         if (actualWidth < 0 || actualHeight < 0) {
             Bitmap bitmap2 = BitmapFactory.decodeFile(filePath);
-            actualWidth = bitmap2.getWidth();
-            actualHeight = bitmap2.getHeight();
+            if (bitmap2 != null){
+                actualWidth = bitmap2.getWidth();
+                actualHeight = bitmap2.getHeight();
+            }else{
+                return null;
+            }
         }
 
         float imgRatio = (float) actualWidth / actualHeight;
