@@ -8,7 +8,9 @@
 ![](https://github.com/nanchen2251/CompressHelper/blob/master/111.png)
 
 #### ⊙开源不易，希望给个star或者fork奖励
+#### ⊙楼主最新从0开始编写：https://github.com/nanchen2251/AiYaGirl
 #### ⊙拥抱开源：https://github.com/nanchen2251/
+
 ## 特点
   1、支持压缩单张图片和多张图片<br>
 ## 使用方法
