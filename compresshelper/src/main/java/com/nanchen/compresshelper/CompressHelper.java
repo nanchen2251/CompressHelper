@@ -46,6 +46,9 @@ public class CompressHelper {
      * 存储路径
      */
     private String destinationDirectoryPath;
+    /**
+     * 文件名前缀
+     */
     private String fileNamePrefix;
     /**
      * 文件名
@@ -170,6 +173,10 @@ public class CompressHelper {
             return this;
         }
 
+        /**
+         * 设置文件前缀
+         * @param prefix    前缀
+         */
         public Builder setFileNamePrefix(String prefix) {
             mCompressHelper.fileNamePrefix = prefix;
             return this;

@@ -42,7 +42,6 @@ public class ImageUtil {
         options.inJustDecodeBounds = true;
         Bitmap bmp = BitmapFactory.decodeFile(filePath, options);
         if (bmp == null) {
-
             InputStream inputStream = null;
             try {
                 inputStream = new FileInputStream(filePath);
@@ -112,7 +111,6 @@ public class ImageUtil {
             //load the bitmap getTempFile its path
             bmp = BitmapFactory.decodeFile(filePath, options);
             if (bmp == null) {
-
                 InputStream inputStream = null;
                 try {
                     inputStream = new FileInputStream(filePath);
