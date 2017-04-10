@@ -39,7 +39,8 @@ dependencies {
                     .setMaxWidth(720)  // 默认最大宽度为720
                     .setMaxHeight(960) // 默认最大高度为960
                     .setQuality(80)    // 默认压缩质量为80
-                    .setCompressFormat(CompressFormat.JPEG) // 设置默认压缩为jpg格式
+		    .setFileName(yourFileName) // 设置你需要修改的文件名
+                    .setCompressFormat(CompressFormat.JPEG) // 设置默认压缩为jpg格式
                     .setDestinationDirectoryPath(Environment.getExternalStoragePublicDirectory(
                             Environment.DIRECTORY_PICTURES).getAbsolutePath())
                     .build()
