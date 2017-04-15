@@ -4,11 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.net.Uri;
 
-
 import java.io.File;
-
-import rx.Observable;
-import rx.functions.Func0;
 
 /**
  * 压缩方法工具类
@@ -19,7 +15,6 @@ import rx.functions.Func0;
  */
 
 public class CompressHelper {
-    private static volatile CompressHelper INSTANCE;
     private Context context;
     /**
      * 最大宽度，默认为720
@@ -61,17 +56,6 @@ public class CompressHelper {
         destinationDirectoryPath = context.getCacheDir().getPath() + File.pathSeparator + FileUtil.FILES_PATH;
     }
 
-    public static CompressHelper getDefault(Context context) {
-        if (INSTANCE == null) {
-            synchronized (CompressHelper.class) {
-                if (INSTANCE == null) {
-                    INSTANCE = new CompressHelper(context);
-                }
-            }
-        }
-        return INSTANCE;
-    }
-
     /**
      * 压缩成文件
      * @param file  原始文件
@@ -90,24 +74,6 @@ public class CompressHelper {
      */
     public Bitmap compressToBitmap(File file) {
         return ImageUtil.getScaledBitmap(context, Uri.fromFile(file), maxWidth, maxHeight, bitmapConfig);
-    }
-
-    public Observable<File> compressToFileAsObservable(final File file) {
-        return Observable.defer(new Func0<Observable<File>>() {
-            @Override
-            public Observable<File> call() {
-                return Observable.just(compressToFile(file));
-            }
-        });
-    }
-
-    public Observable<Bitmap> compressToBitmapAsObservable(final File file) {
-        return Observable.defer(new Func0<Observable<Bitmap>>() {
-            @Override
-            public Observable<Bitmap> call() {
-                return Observable.just(compressToBitmap(file));
-            }
-        });
     }
 
 
