@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity{
 
     public void compress(View view) {
         // 默认的压缩方法，多张图片只需要直接加入循环即可
-        newFile = CompressHelper.getDefault(this).compressToFile(oldFile);
+        newFile = CompressHelper.getDefault(getApplicationContext()).compressToFile(oldFile);
 
 
 //        String yourFileName = "123.jpg";

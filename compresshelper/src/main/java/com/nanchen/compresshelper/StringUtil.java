@@ -9,9 +9,9 @@ package com.nanchen.compresshelper;
  * Date: 2017-02-19  9:52
  */
 
-public class StringUtils {
+public class StringUtil {
 
-    private StringUtils() {
+    private StringUtil() {
         throw new UnsupportedOperationException("u can't instantiate me...");
     }
 

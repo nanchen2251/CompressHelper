@@ -38,7 +38,7 @@ public class FileUtil {
      * @return 文件
      */
     public static File getFileByPath(String filePath) {
-        return StringUtils.isSpace(filePath) ? null : new File(filePath);
+        return StringUtil.isSpace(filePath) ? null : new File(filePath);
     }
 
     /**
@@ -86,7 +86,7 @@ public class FileUtil {
         // 文件不存在返回false
         if (!file.exists()) return false;
         // 新的文件名为空返回false
-        if (StringUtils.isSpace(newName)) return false;
+        if (StringUtil.isSpace(newName)) return false;
         // 如果文件名没有改变返回true
         if (newName.equals(file.getName())) return true;
         File newFile = new File(file.getParent() + File.separator + newName);

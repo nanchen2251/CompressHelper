@@ -15,6 +15,8 @@ import java.io.File;
  */
 
 public class CompressHelper {
+    private static volatile CompressHelper INSTANCE;
+
     private Context context;
     /**
      * 最大宽度，默认为720
@@ -50,6 +52,17 @@ public class CompressHelper {
      */
     private String fileName;
 
+    public static CompressHelper getDefault(Context context) {
+        if (INSTANCE == null) {
+            synchronized (CompressHelper.class) {
+                if (INSTANCE == null) {
+                    INSTANCE = new CompressHelper(context);
+                }
+            }
+        }
+        return INSTANCE;
+    }
+
 
     private CompressHelper(Context context) {
         this.context = context;
@@ -62,7 +75,7 @@ public class CompressHelper {
      * @return      压缩后的文件
      */
     public File compressToFile(File file) {
-        return ImageUtil.compressImage(context, Uri.fromFile(file), maxWidth, maxHeight,
+        return BitmapUtil.compressImage(context, Uri.fromFile(file), maxWidth, maxHeight,
                 compressFormat, bitmapConfig, quality, destinationDirectoryPath,
                 fileNamePrefix, fileName);
     }
@@ -73,7 +86,7 @@ public class CompressHelper {
      * @return      压缩后的Bitmap
      */
     public Bitmap compressToBitmap(File file) {
-        return ImageUtil.getScaledBitmap(context, Uri.fromFile(file), maxWidth, maxHeight, bitmapConfig);
+        return BitmapUtil.getScaledBitmap(context, Uri.fromFile(file), maxWidth, maxHeight, bitmapConfig);
     }
 
 
