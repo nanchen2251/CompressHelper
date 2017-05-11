@@ -28,7 +28,7 @@ allprojects {
 ##### Step 2. Add the dependency
 ```java
 dependencies {
-	        compile 'com.github.nanchen2251:CompressHelper:1.0.4'
+	        compile 'com.github.nanchen2251:CompressHelper:1.0.5'
 	}
 ```
 #### 2、在Activity里面使用<br>
