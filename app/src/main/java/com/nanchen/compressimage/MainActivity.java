@@ -52,6 +52,7 @@ public class MainActivity extends AppCompatActivity{
         newFile = CompressHelper.getDefault(getApplicationContext()).compressToFile(oldFile);
 
 
+
 //        String yourFileName = "123.jpg";
 //
 //        // 你也可以自定义压缩
