@@ -143,7 +143,7 @@ public class BitmapUtil {
         canvas.setMatrix(scaleMatrix);
         canvas.drawBitmap(bmp, 0, 0, new Paint(Paint.FILTER_BITMAP_FLAG));
 
-        //check the rotation of the image and display it properly
+        // 采用 ExitInterface 设置图片旋转方向
         ExifInterface exif;
         try {
             exif = new ExifInterface(filePath);
@@ -173,8 +173,11 @@ public class BitmapUtil {
         String filename = generateFilePath(context, parentPath, imageUri, compressFormat.name().toLowerCase(), prefix, fileName);
         try {
             out = new FileOutputStream(filename);
-            //write the compressed bitmap at the destination specified by filename.
-            BitmapUtil.getScaledBitmap(context, imageUri, maxWidth, maxHeight, bitmapConfig).compress(compressFormat, quality, out);
+            // 通过文件名写入
+            Bitmap newBmp = BitmapUtil.getScaledBitmap(context, imageUri, maxWidth, maxHeight, bitmapConfig);
+            if (newBmp != null){
+                newBmp.compress(compressFormat, quality, out);
+            }
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
