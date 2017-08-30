@@ -2,10 +2,10 @@
 压缩，图片压缩，压缩Bitmap，Compress,CompressImage,CompressFile,CompressBitmap<br><br>
 
 #### 笔者从零搭建 Retrofit & RxJava & MVP 框架APP,欢迎关注：https://github.com/nanchen2251/AiYaGirl
-#### 笔者最新 RxJava 2.x 教程系列代码，多多支持（含技术Blog）:https://github.com/nanchen2251/RxJava2Examples
+#### 笔者最新 RxJava 2.x 教程系列代码，多多支持（含技术Blog）: https://github.com/nanchen2251/RxJava2Examples
 
 
-主要通过尺寸压缩和质量压缩，以达到清晰度最优，该项目参考了[https://github.com/zetbaitsu/Compressor](https://github.com/zetbaitsu/Compressor) 的部分代码，且在基础上修正了部分bug
+主要通过尺寸压缩和质量压缩，以达到清晰度最优，该项目参考了 [https://github.com/zetbaitsu/Compressor](https://github.com/zetbaitsu/Compressor) 的部分代码，且在基础上修正了部分 bug
 ## 效果图<br>
 ![](https://github.com/nanchen2251/CompressHelper/blob/master/111.png)
 
