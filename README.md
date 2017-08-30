@@ -9,7 +9,7 @@
 ## 效果图<br>
 ![](https://github.com/nanchen2251/CompressHelper/blob/master/111.png)
 
-#### ⊙开源不易，希望给个star或者fork奖励
+#### ⊙开源不易，希望给个 star 或者 fork 奖励
 #### ⊙拥抱开源：https://github.com/nanchen2251/
 #### ⊙交流群（拒绝无脑问）：118116509
 
