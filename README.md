@@ -1,8 +1,6 @@
 # CompressHelper
 压缩，图片压缩，压缩Bitmap，Compress,CompressImage,CompressFile,CompressBitmap<br><br>
 
-#### 号外：听说「nanchen」搞了一个 Android 开发者的免费福利，不行你看：[给 Android 开发者的一点福利：免费模拟面试](http://mp.weixin.qq.com/s/WRdSmGxwDp-CpQcSlmJYlg)
-
 主要通过尺寸压缩和质量压缩，以达到清晰度最优，该项目参考了 [https://github.com/zetbaitsu/Compressor](https://github.com/zetbaitsu/Compressor) 的部分代码，且在基础上修正了部分 bug
 
 
@@ -30,7 +28,7 @@ allprojects {
 ##### Step 2. Add the dependency
 ```java
 dependencies {
-	        compile 'com.github.nanchen2251:CompressHelper:1.0.5'
+	        implementation 'com.github.nanchen2251:CompressHelper:1.0.5'
 	}
 ```
 #### 2、在Activity里面使用<br>
