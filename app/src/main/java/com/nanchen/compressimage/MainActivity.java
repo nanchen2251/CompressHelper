@@ -18,7 +18,7 @@ import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.Random;
 
-public class MainActivity extends AppCompatActivity{
+public class MainActivity extends AppCompatActivity {
 
     private ImageView mImageOld;
     private ImageView mImageNew;
@@ -41,16 +41,20 @@ public class MainActivity extends AppCompatActivity{
     }
 
     private void initInstances() {
-        mImageOld = (ImageView) findViewById(R.id.main_image_old);
-        mImageNew = (ImageView) findViewById(R.id.main_image_new);
-        mTextOld = (TextView) findViewById(R.id.main_text_old);
-        mTextNew = (TextView) findViewById(R.id.main_text_new);
+        mImageOld = findViewById(R.id.main_image_old);
+        mImageNew = findViewById(R.id.main_image_new);
+        mTextOld = findViewById(R.id.main_text_old);
+        mTextNew = findViewById(R.id.main_text_new);
     }
 
+
     public void compress(View view) {
+        if (oldFile == null) {
+            Toast.makeText(getApplicationContext(), "请先选择图片！", Toast.LENGTH_SHORT).show();
+            return;
+        }
         // 默认的压缩方法，多张图片只需要直接加入循环即可
         newFile = CompressHelper.getDefault(getApplicationContext()).compressToFile(oldFile);
-
 
 
 //        String yourFileName = "123.jpg";

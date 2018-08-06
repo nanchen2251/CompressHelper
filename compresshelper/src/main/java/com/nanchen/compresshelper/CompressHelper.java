@@ -3,12 +3,13 @@ package com.nanchen.compresshelper;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.support.v4.content.FileProvider;
 
 import java.io.File;
 
 /**
  * 压缩方法工具类
- *
+ * <p>
  * Author: nanchen
  * Email: liushilin520@foxmail.com
  * Date: 2017-03-08  9:03
@@ -71,24 +72,33 @@ public class CompressHelper {
 
     /**
      * 压缩成文件
-     * @param file  原始文件
-     * @return      压缩后的文件
+     *
+     * @param file 原始文件
+     * @return 压缩后的文件
      */
     public File compressToFile(File file) {
-        return BitmapUtil.compressImage(context, Uri.fromFile(file), maxWidth, maxHeight,
+        return BitmapUtil.compressImage(context, getUriFromFile(file), maxWidth, maxHeight,
                 compressFormat, bitmapConfig, quality, destinationDirectoryPath,
                 fileNamePrefix, fileName);
     }
 
     /**
      * 压缩为Bitmap
-     * @param file  原始文件
-     * @return      压缩后的Bitmap
+     *
+     * @param file 原始文件
+     * @return 压缩后的Bitmap
      */
     public Bitmap compressToBitmap(File file) {
-        return BitmapUtil.getScaledBitmap(context, Uri.fromFile(file), maxWidth, maxHeight, bitmapConfig);
+        return BitmapUtil.getScaledBitmap(context, getUriFromFile(file), maxWidth, maxHeight, bitmapConfig);
     }
 
+    private Uri getUriFromFile(File file) {
+        // 默认情况下，即不需要指定intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+        // 照相机有自己默认的存储路径，拍摄的照片将返回一个缩略图。如果想访问原始图片，
+        // 可以通过dat extra能够得到原始图片位置。即，如果指定了目标uri，data就没有数据，
+        // 如果没有指定uri，则data就返回有数据！
+        return FileProvider.getUriForFile(context, "com.nanchen.compresshelper.provider", file);
+    }
 
     /**
      * 采用建造者模式，设置Builder
@@ -102,7 +112,8 @@ public class CompressHelper {
 
         /**
          * 设置图片最大宽度
-         * @param maxWidth  最大宽度
+         *
+         * @param maxWidth 最大宽度
          */
         public Builder setMaxWidth(float maxWidth) {
             mCompressHelper.maxWidth = maxWidth;
@@ -111,6 +122,7 @@ public class CompressHelper {
 
         /**
          * 设置图片最大高度
+         *
          * @param maxHeight 最大高度
          */
         public Builder setMaxHeight(float maxHeight) {
@@ -136,7 +148,8 @@ public class CompressHelper {
 
         /**
          * 设置压缩质量，建议80
-         * @param quality   压缩质量，[0,100]
+         *
+         * @param quality 压缩质量，[0,100]
          */
         public Builder setQuality(int quality) {
             mCompressHelper.quality = quality;
@@ -145,7 +158,8 @@ public class CompressHelper {
 
         /**
          * 设置目的存储路径
-         * @param destinationDirectoryPath  目的路径
+         *
+         * @param destinationDirectoryPath 目的路径
          */
         public Builder setDestinationDirectoryPath(String destinationDirectoryPath) {
             mCompressHelper.destinationDirectoryPath = destinationDirectoryPath;
@@ -154,7 +168,8 @@ public class CompressHelper {
 
         /**
          * 设置文件前缀
-         * @param prefix    前缀
+         *
+         * @param prefix 前缀
          */
         public Builder setFileNamePrefix(String prefix) {
             mCompressHelper.fileNamePrefix = prefix;
@@ -163,7 +178,8 @@ public class CompressHelper {
 
         /**
          * 设置文件名称
-         * @param fileName  文件名
+         *
+         * @param fileName 文件名
          */
         public Builder setFileName(String fileName) {
             mCompressHelper.fileName = fileName;
